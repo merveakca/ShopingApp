@@ -6,11 +6,12 @@ namespace ShopingApp
         {
             InitializeComponent();
         }
-        decimal total = 0;
+        decimal total;
         private void txtBarcode_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
+                total = 0;
                 dgList.Rows.Add(dgList.Rows.Count + 1, txtBarcode.Text, 15, 100, 15 * 100);
                 txtBarcode.Clear();
 
@@ -30,11 +31,10 @@ namespace ShopingApp
             if (total < 0)
             {
                 //MessageBox.Show("Ödeme Miktarýndan Fazla Tutar");
-
-
                 lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                
             }
-
+            dgPayment.Rows.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,7 +51,9 @@ namespace ShopingApp
             if (total < 0)
             {
                 lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                
             }
+            dgPayment.Rows.Clear();
         }
 
         private void Form1_Load(object sender, EventArgs e)
