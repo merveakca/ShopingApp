@@ -32,9 +32,7 @@ namespace ShopingApp
             {
                 //MessageBox.Show("Ödeme Miktarýndan Fazla Tutar");
                 lbRemaing.Text = "Paraüstü = " + (-1 * total);
-                
             }
-            dgPayment.Rows.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,9 +49,7 @@ namespace ShopingApp
             if (total < 0)
             {
                 lbRemaing.Text = "Paraüstü = " + (-1 * total);
-                
             }
-            dgPayment.Rows.Clear();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -70,7 +66,6 @@ namespace ShopingApp
             txtPayment.Text = "";
             txtBarcode.Enabled = true;
             total = 0;
-
         }
 
         private void btnDeleteSelect_Click(object sender, EventArgs e)
@@ -81,11 +76,6 @@ namespace ShopingApp
                 total -= Convert.ToDecimal(item.Cells[4].Value);
                 lbTotal.Text = total.ToString();
             }
-        }
-
-        private void lbTotal_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
