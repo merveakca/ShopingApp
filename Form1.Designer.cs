@@ -32,26 +32,26 @@
             txtBarcode = new TextBox();
             groupBox2 = new GroupBox();
             dgList = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            ProductName = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            Price = new DataGridViewTextBoxColumn();
+            TotalPrice = new DataGridViewTextBoxColumn();
             groupBox3 = new GroupBox();
             lbTotal = new Label();
             groupBox4 = new GroupBox();
             lbRemaing = new Label();
             btnCC = new Button();
-            btnAccept = new Button();
+            btnComplete = new Button();
             btnCash = new Button();
             txtPayment = new TextBox();
             btnDeleteSelect = new Button();
             btnReset = new Button();
             dgPayment = new DataGridView();
             Type = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
+            PaidMoney = new DataGridViewTextBoxColumn();
             groupBox5 = new GroupBox();
             button1 = new Button();
-            Id = new DataGridViewTextBoxColumn();
-            Name = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            Price = new DataGridViewTextBoxColumn();
-            TotalPrice = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgList).BeginInit();
@@ -81,7 +81,7 @@
             txtBarcode.Name = "txtBarcode";
             txtBarcode.Size = new Size(572, 50);
             txtBarcode.TabIndex = 0;
-            txtBarcode.Text = "ürünün adını giriniz";
+            txtBarcode.Text = "ürün giriniz";
             txtBarcode.KeyPress += txtBarcode_KeyPress;
             // 
             // groupBox2
@@ -101,7 +101,7 @@
             dgList.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             dgList.BackgroundColor = SystemColors.ActiveBorder;
             dgList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgList.Columns.AddRange(new DataGridViewColumn[] { Id, Name, Quantity, Price, TotalPrice });
+            dgList.Columns.AddRange(new DataGridViewColumn[] { Id, ProductName, Quantity, Price, TotalPrice });
             dgList.Dock = DockStyle.Fill;
             dgList.Location = new Point(4, 29);
             dgList.Margin = new Padding(4, 5, 4, 5);
@@ -110,6 +110,41 @@
             dgList.RowTemplate.Height = 25;
             dgList.Size = new Size(600, 806);
             dgList.TabIndex = 0;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.MinimumWidth = 30;
+            Id.Name = "Id";
+            Id.Width = 30;
+            // 
+            // ProductName
+            // 
+            ProductName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ProductName.HeaderText = "Name";
+            ProductName.MinimumWidth = 8;
+            ProductName.Name = "ProductName";
+            // 
+            // Quantity
+            // 
+            Quantity.HeaderText = "Quantity";
+            Quantity.MinimumWidth = 8;
+            Quantity.Name = "Quantity";
+            Quantity.Width = 90;
+            // 
+            // Price
+            // 
+            Price.HeaderText = "Price";
+            Price.MinimumWidth = 8;
+            Price.Name = "Price";
+            Price.Width = 50;
+            // 
+            // TotalPrice
+            // 
+            TotalPrice.HeaderText = "TotalPrice";
+            TotalPrice.MinimumWidth = 90;
+            TotalPrice.Name = "TotalPrice";
+            TotalPrice.Width = 90;
             // 
             // groupBox3
             // 
@@ -138,7 +173,7 @@
             // 
             groupBox4.Controls.Add(lbRemaing);
             groupBox4.Controls.Add(btnCC);
-            groupBox4.Controls.Add(btnAccept);
+            groupBox4.Controls.Add(btnComplete);
             groupBox4.Controls.Add(btnCash);
             groupBox4.Controls.Add(txtPayment);
             groupBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -153,12 +188,12 @@
             // lbRemaing
             // 
             lbRemaing.Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbRemaing.Location = new Point(13, 270);
+            lbRemaing.Location = new Point(3, 334);
             lbRemaing.Margin = new Padding(4, 0, 4, 0);
             lbRemaing.Name = "lbRemaing";
-            lbRemaing.Size = new Size(503, 112);
+            lbRemaing.Size = new Size(503, 80);
             lbRemaing.TabIndex = 8;
-            lbRemaing.Text = "kalan tutar";
+            lbRemaing.Text = "kalan toplam";
             lbRemaing.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnCC
@@ -170,20 +205,21 @@
             btnCC.Name = "btnCC";
             btnCC.Size = new Size(143, 167);
             btnCC.TabIndex = 1;
-            btnCC.Text = "Credit Card";
+            btnCC.Text = "Kredi Kartı";
             btnCC.UseVisualStyleBackColor = false;
             btnCC.Click += btnCC_Click;
             // 
-            // btnAccept
+            // btnComplete
             // 
-            btnAccept.BackColor = Color.FromArgb(255, 128, 255);
-            btnAccept.Location = new Point(179, 430);
-            btnAccept.Margin = new Padding(4, 5, 4, 5);
-            btnAccept.Name = "btnAccept";
-            btnAccept.Size = new Size(143, 167);
-            btnAccept.TabIndex = 3;
-            btnAccept.Text = "Accept";
-            btnAccept.UseVisualStyleBackColor = false;
+            btnComplete.BackColor = Color.FromArgb(255, 128, 255);
+            btnComplete.Location = new Point(179, 430);
+            btnComplete.Margin = new Padding(4, 5, 4, 5);
+            btnComplete.Name = "btnComplete";
+            btnComplete.Size = new Size(143, 167);
+            btnComplete.TabIndex = 3;
+            btnComplete.Text = "İşlemi Tamamla";
+            btnComplete.UseVisualStyleBackColor = false;
+            btnComplete.Click += btnComplete_Click;
             // 
             // btnCash
             // 
@@ -193,7 +229,7 @@
             btnCash.Name = "btnCash";
             btnCash.Size = new Size(143, 167);
             btnCash.TabIndex = 2;
-            btnCash.Text = "Cash";
+            btnCash.Text = "Nakit";
             btnCash.UseVisualStyleBackColor = false;
             btnCash.Click += btnCash_Click;
             // 
@@ -206,7 +242,6 @@
             txtPayment.Name = "txtPayment";
             txtPayment.Size = new Size(453, 50);
             txtPayment.TabIndex = 0;
-            txtPayment.Text = "ödeyeceğiniz miktarı giriniz:";
             // 
             // btnDeleteSelect
             // 
@@ -235,7 +270,7 @@
             dgPayment.AllowUserToAddRows = false;
             dgPayment.BackgroundColor = SystemColors.ActiveBorder;
             dgPayment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgPayment.Columns.AddRange(new DataGridViewColumn[] { Type, Total });
+            dgPayment.Columns.AddRange(new DataGridViewColumn[] { Type, PaidMoney });
             dgPayment.Dock = DockStyle.Fill;
             dgPayment.Location = new Point(4, 29);
             dgPayment.Margin = new Padding(4, 5, 4, 5);
@@ -253,12 +288,12 @@
             Type.MinimumWidth = 8;
             Type.Name = "Type";
             // 
-            // Total
+            // PaidMoney
             // 
-            Total.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Total.HeaderText = "Total";
-            Total.MinimumWidth = 8;
-            Total.Name = "Total";
+            PaidMoney.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            PaidMoney.HeaderText = "PaidMoney";
+            PaidMoney.MinimumWidth = 8;
+            PaidMoney.Name = "PaidMoney";
             // 
             // groupBox5
             // 
@@ -282,41 +317,6 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.MinimumWidth = 30;
-            Id.Name = "Id";
-            Id.Width = 30;
-            // 
-            // Name
-            // 
-            Name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Name.HeaderText = "Name";
-            Name.MinimumWidth = 8;
-            Name.Name = "Name";
-            // 
-            // Quantity
-            // 
-            Quantity.HeaderText = "Quantity";
-            Quantity.MinimumWidth = 8;
-            Quantity.Name = "Quantity";
-            Quantity.Width = 90;
-            // 
-            // Price
-            // 
-            Price.HeaderText = "Price";
-            Price.MinimumWidth = 8;
-            Price.Name = "Price";
-            Price.Width = 50;
-            // 
-            // TotalPrice
-            // 
-            TotalPrice.HeaderText = "TotalPrice";
-            TotalPrice.MinimumWidth = 90;
-            TotalPrice.Name = "TotalPrice";
-            TotalPrice.Width = 90;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -332,7 +332,7 @@
             Controls.Add(groupBox1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
-            Text = "Form1";
+            Text = "ürün giriniz";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -358,19 +358,19 @@
         private Button btnCC;
         private Button btnCash;
         private TextBox txtPayment;
-        private Button btnAccept;
+        private Button btnComplete;
         private Button btnReset;
         private DataGridView dgPayment;
-        private DataGridViewTextBoxColumn Type;
-        private DataGridViewTextBoxColumn Total;
         private GroupBox groupBox5;
         private Label lbRemaing;
         private Button button1;
         private Button btnDeleteSelect;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn ProductName;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn Price;
         private DataGridViewTextBoxColumn TotalPrice;
+        private DataGridViewTextBoxColumn Type;
+        private DataGridViewTextBoxColumn PaidMoney;
     }
 }

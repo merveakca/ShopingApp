@@ -1,3 +1,5 @@
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace ShopingApp
 {
     public partial class Form1 : Form
@@ -11,27 +13,45 @@ namespace ShopingApp
         {
             if (e.KeyChar == 13)
             {
-                total = 0;
-                dgList.Rows.Add(dgList.Rows.Count + 1, txtBarcode.Text, 15, 100, 15 * 100);
-                txtBarcode.Clear();
-
-                for (int i = 0; i < dgList.Rows.Count; i++)
+                if (!(txtBarcode.Text == "" || txtBarcode.Text == "ürün giriniz"))
                 {
-                    total += Convert.ToDecimal(dgList.Rows[i].Cells[4].Value);
+                    total = 0;
+                    dgList.Rows.Add(dgList.Rows.Count + 1, txtBarcode.Text, 15, 100, 15 * 100);
+                    txtBarcode.Clear();
+
+                    for (int i = 0; i < dgList.Rows.Count; i++)
+                    {
+                        total += Convert.ToDecimal(dgList.Rows[i].Cells[4].Value);
+                    }
+                    lbTotal.Text = total.ToString();
                 }
-                lbTotal.Text = total.ToString();
+                else
+                {
+                    MessageBox.Show("Ürün Adý Boþ Geçilemez", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-
+        int Number;
         private void btnCC_Click(object sender, EventArgs e)
         {
-            total -= decimal.Parse(txtPayment.Text);
-            lbRemaing.Text = total.ToString();
-            dgPayment.Rows.Add("Credit Card", txtPayment.Text);
-            if (total < 0)
+            if (!int.TryParse(txtPayment.Text, out Number))
             {
-                //MessageBox.Show("Ödeme Miktarýndan Fazla Tutar");
-                lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                MessageBox.Show("Sadece numaretik deðerler girebilirsiniz!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtBarcode.Text = "";
+                return;
+            }
+            else
+            {
+                lbRemaing.Text = Number.ToString();
+                total -= decimal.Parse(txtPayment.Text);
+                lbRemaing.Text = total.ToString();
+                dgPayment.Rows.Add("Credit Card", txtPayment.Text);
+                txtPayment.Text = "";
+                if (total < 0)
+                {
+                    //MessageBox.Show("Ödeme Miktarýndan Fazla Tutar");
+                    lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                }
             }
         }
 
@@ -43,12 +63,22 @@ namespace ShopingApp
 
         private void btnCash_Click(object sender, EventArgs e)
         {
-            total -= decimal.Parse(txtPayment.Text);
-            lbRemaing.Text = total.ToString();
-            dgPayment.Rows.Add("Cash", txtPayment.Text);
-            if (total < 0)
+            if (!int.TryParse(txtPayment.Text, out Number))
             {
-                lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                MessageBox.Show("Sadece numaretik deðerler girebilirsiniz!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtBarcode.Text = "";
+                return;
+            }
+            else
+            {
+                total -= decimal.Parse(txtPayment.Text);
+                lbRemaing.Text = total.ToString();
+                dgPayment.Rows.Add("Cash", txtPayment.Text);
+                txtPayment.Text = "";
+                if (total < 0)
+                {
+                    lbRemaing.Text = "Paraüstü = " + (-1 * total);
+                }
             }
         }
 
@@ -58,6 +88,11 @@ namespace ShopingApp
         }
 
         private void btnReset_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
+
+        private void ClearAll()
         {
             dgList.Rows.Clear();
             dgPayment.Rows.Clear();
@@ -75,6 +110,21 @@ namespace ShopingApp
                 dgList.Rows.RemoveAt(item.Index);
                 total -= Convert.ToDecimal(item.Cells[4].Value);
                 lbTotal.Text = total.ToString();
+            }
+        }
+
+        private void btnComplete_Click(object sender, EventArgs e)
+        {
+            if (total <= 0)
+            {
+                if (MessageBox.Show("Alýþveriþe Devam etmek istiyor musunuz", "Durum", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ClearAll();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ödeme Tamamlanmadý");
             }
         }
     }
